@@ -1,9 +1,6 @@
 {
   "name": "healthcare-billing",
   "version": "0.0.0",
-  "engines": {
-    "node": "14.7.6"
-  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
