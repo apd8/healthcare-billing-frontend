@@ -1,0 +1,23 @@
+.list-container {
+    margin: 10px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    .heading {
+        padding: 10px 5px;
+        background-color: #a5a6b7;
+        font-weight: bold;
+    }
+
+    .content:nth-child(even) {
+        background-color: #f5f5f5;
+    }
+
+    .content {
+        padding: 10px 5px;
+        border-bottom: 1px solid rgb(142 142 159);
+    }
+
+    .content label {
+        margin-left: 5px;
+    }
+}

@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="title-wrapper">
+            <span class="cl-blue">Chief Complaint: </span>
+            <span class="cl-orange">Vertigo</span>
+            <span class="cl-black"> on 03/23/2016</span>
+        </div>
+        <div class="d-flex">
+            <div>
+                <mat-form-field appearance="fill" class="ml-5">
+                    <mat-label>Neurology</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let item of list" [value]="item.value">
+                            {{item.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="ml-5 mr-5">
+                <mat-form-field appearance="fill" class="ml-5">
+                    <mat-label>Encounter</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let item of encounterList" [value]="item.value">
+                            {{item.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <mat-tab-group [@.disabled]="true">
+            <mat-tab [label]="item.name" *ngFor="let item of visitInfo; let i = index">
+                <visit-checklist (callback)="onChangeCallback($event)" [data]="item.details"></visit-checklist>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+
+    <div class="lookup-container" *ngIf="chargesList.length > 0">
+        <div class="d-flex align-items-center justify-content-between heading">
+            <span class="cl-black">Charges</span>
+            <div>
+                <button type="button" class="btn btn-primary mr-5">Run Charge Edit</button>
+                <button type="button" class="btn btn-success ml-5">Save Encounter</button>
+            </div>
+        </div>
+        <table>
+            <tr>
+              <th>CPT</th>
+              <th>ICDs</th>
+              <th>Units</th>
+              <th>Modifiers</th>
+              <th>Fee</th>
+              <th>Plan Amount</th>
+              <th>Pat. Amount</th>
+              <th>Co Pay</th>
+              <th>Actions</th>
+            </tr>
+            <tr *ngFor="let item of chargesList; let i = index">
+              <td>{{item.code}}</td>
+              <td>{{item.icd}}</td>
+              <td>{{item.unit}}</td>
+              <td>{{item.modifiers}}</td>
+              <td>{{item.fee}}</td>
+              <td>{{item.planAmount}}</td>
+              <td>{{item.patientAmount}}</td>
+              <td>{{item.coPay}}</td>
+              <td></td>
+            </tr>
+          </table>
+    </div>
+</div>

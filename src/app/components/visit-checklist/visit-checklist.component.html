@@ -1,0 +1,14 @@
+<div class="row">
+    <div *ngFor="let item of data; let i = index" class="col-lg-6 col-sm-12 col-xs-12">
+        <div class="list-container">
+            <div class="heading">{{item.label}}</div>
+            <div class="content" *ngFor="let list of item.value; let j = index">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="list.selected" [name]="list.name"
+                    [id]="list.code" (change)="checkValue($event, list)">
+                <label class="form-check-label ml-4" [for]="list.code">
+                    {{list.name}}
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

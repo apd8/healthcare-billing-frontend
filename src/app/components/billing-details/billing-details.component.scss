@@ -1,0 +1,71 @@
+.title-wrapper {
+    padding-bottom: 1.34375em
+}
+
+.mat-tab-label{
+    margin-top: 20px;
+    border: 2px solid black; 
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 10vw;
+    height: 4vh !important;
+    background-color: black;
+    font-size: 12px;
+    font-weight: bold;
+    opacity: 1;
+    color: yellow;
+}
+
+.cl-blue {
+    color: #33A2FF;
+    font-weight: bold;
+}
+
+.cl-blue {
+    color: #33A2FF;
+    font-weight: bold;
+}
+
+.cl-orange {
+    color: #C15C49;
+    font-weight: bold;
+}
+
+.cl-black {
+    color: #443312;
+    font-weight: bold;
+}
+
+.ml-5 {
+    margin-left: 5px;
+}
+
+.mr-5 {
+    margin-right: 5px;
+}
+/* Styles for the active tab label */
+
+// change any styles you want for active tab
+.mat-tab-label.mat-tab-label-active {
+    background-color: white;
+}
+
+.lookup-container {
+    padding-bottom: 5px;
+    .heading {
+        background-color: #ADC3C9;
+        padding: 10px;
+    }
+}
+
+table 
+{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    }
+    td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
