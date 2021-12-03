@@ -1,0 +1,7 @@
+<ul>
+    <li *ngFor="let item of data; let i = index" class="col-lg-12">
+        <a href="javascript:void(0)" (click)="getChildCodes(item.code)">{{item.code}}</a> 
+        <span> : </span>
+        <span>{{item.description}}</span>
+    </li>
+</ul>
