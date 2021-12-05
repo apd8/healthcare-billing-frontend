@@ -1,1 +1,18 @@
-<p>cpt details</p>
+<div class="row">
+    <div *ngFor="let item of data; let i = index" 
+    [ngClass]="{'col-lg-6 col-sm-12 col-xs-12' : item.cptCodeRates && item.cptCodeRates?.length > 0, 
+        'none': item.cptCodeRates && item.cptCodeRates?.length == 0}">
+        <div class="list-container" *ngIf="item.cptCodeRates && item.cptCodeRates?.length > 0">
+            <div class="heading">{{item.description}}</div>
+            <div *ngFor="let list of item.cptCodeRates; let j = index">
+                <div class="content" *ngIf="j < 5">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="list.cptCode.selected" [name]="list.cptCode.code"
+                        [id]="list.cptCode.code" (change)="selectCptCodes($event, list, item.id)">
+                    <label class="form-check-label ml-4" [for]="list.cptCode.code">
+                        {{list.cptCode.description}}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

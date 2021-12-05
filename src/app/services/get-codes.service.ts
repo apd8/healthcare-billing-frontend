@@ -10,9 +10,14 @@ export class GetCodesService {
 
   icdCodesURL = "http://ec2-18-223-151-191.us-east-2.compute.amazonaws.com:8080/billing/icd10codes";
   cptCodesURL = "http://ec2-18-223-151-191.us-east-2.compute.amazonaws.com:8080/billing/cptCodes";
-  constructor(private http: HttpClient) { 
-
+  icdChildCodesURL = "http://ec2-18-223-151-191.us-east-2.compute.amazonaws.com:8080/billing/icd10codes/";
+  
+  claimObj:any = {
+    "icdCodes" : [],
+    "cptCodes" : []
   }
+  
+  constructor(private http: HttpClient) { }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -36,12 +41,21 @@ export class GetCodesService {
     )
   }
 
-  getChildrenCodes(code : string): Observable<[]> {
-    return this.http.get<[]>(this.cptCodesURL + '/' + code)
+  getICDChildCodes(code : string): Observable<[]> {
+    return this.http.get<[]>(this.icdChildCodesURL + code)
     .pipe(
       retry(1),
       catchError(this.handleError)
     )
+  }
+
+  setIcdCodes(codes: any[]) {
+    this.claimObj['icdCodes'] = codes;
+  }
+
+  setCptCodes(codes: any[]) {
+    this.claimObj['cptCodes'] = codes;
+    console.log(this.claimObj);
   }
 
   handleError(error: any) {
@@ -55,5 +69,5 @@ export class GetCodesService {
     }
     window.alert(errorMessage);
     return throwError(errorMessage);
- }
+  }
 }

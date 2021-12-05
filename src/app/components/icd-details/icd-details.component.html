@@ -1,7 +1,52 @@
-<ul>
+<ul *ngIf="showChildData == false">
     <li *ngFor="let item of data; let i = index" class="col-lg-12">
-        <a href="javascript:void(0)" (click)="getChildCodes(item.code)">{{item.code}}</a> 
+        <a href="javascript:void(0)" (click)="getChildCodes(item.code)">{{item.code}}</a>
         <span> : </span>
         <span>{{item.description}}</span>
     </li>
 </ul>
+
+<div *ngIf="showChildData == true">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="d-flex align-items-center px-2 pt-2">
+                <button type="button" class="btn btn-warning mr-5" (click)="goBack()">Go Back</button>
+            </div>
+            <div class="list-container">
+                <div class="content" *ngFor="let child of childData; let i = index">
+                    <div>
+                        <input class="form-check-input" type="radio" [(ngModel)]="selected" [value]="child.code"
+                            [name]="child.code" [id]="child.code" (change)="changeIcd(child.code)">
+                        <label class="form-check-label ml-4" [for]="child.code">
+                            {{child.description}}
+                        </label>
+                    </div>
+                    <!-- NESTED Childs -->
+                    <div *ngIf="grandChildData.length > 0 && childCode == child.code" class="px-2 pt-2">
+                        <div class="" *ngFor="let gchild of grandChildData; let j = index">
+                            <div>
+                                <span class="arrow" (click)="toggleArrow($event, gchild)"></span>
+                                <label class="form-check-label ml-4" [for]="gchild.code">
+                                    <span>
+                                        {{gchild.description}}
+                                        <div *ngIf="gchild.showSubcodes && gchild.showSubcodes == true">
+                                            <div *ngFor="let subcode of gchild.subCodes; let k = index">
+                                                <div *ngIf="k < 5">
+                                                    <input class="form-check-input" type="checkbox" [(ngModel)]="subcode.selected"
+                                                    [value]="subcode.code" [name]="subcode.code" [id]="subcode.code" (change)="selectIcd($event, subcode)">
+                                                    <label class="form-check-label ml-4" [for]="subcode.code">
+                                                        {{subcode.description}}
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </label>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
