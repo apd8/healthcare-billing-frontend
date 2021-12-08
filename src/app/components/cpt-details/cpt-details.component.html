@@ -1,7 +1,6 @@
 <div class="row">
     <div *ngFor="let item of data; let i = index" 
-    [ngClass]="{'col-lg-6 col-sm-12 col-xs-12' : item.cptCodeRates && item.cptCodeRates?.length > 0, 
-        'none': item.cptCodeRates && item.cptCodeRates?.length == 0}">
+    class="col-lg-6 col-sm-12 col-xs-12">
         <div class="list-container" *ngIf="item.cptCodeRates && item.cptCodeRates?.length > 0">
             <div class="heading">{{item.description}}</div>
             <div *ngFor="let list of item.cptCodeRates; let j = index">
@@ -13,6 +12,41 @@
                     </label>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="selectedCptCodes.length > 0">
+    <div class="col-lg-12">
+        <div class="lookup-container">
+            <div class="d-flex align-items-center justify-content-between heading">
+                <span class="cl-black">Charges</span>
+                <div>
+                    <!-- <button type="button" class="btn btn-success mr-5">Run Charge Edit</button> -->
+                    <button type="button" class="btn btn-primary ml-5">Save Encounter</button>
+                </div>
+            </div>
+            <table>
+                <tr>
+                    <th>CPT</th>
+                    <th>ICDs</th>
+                    <th>Fee</th>
+                    <th>Currency</th>
+                    <th>Actions</th>
+                </tr>
+                <tr *ngFor="let cpt of selectedCptCodes; let i = index">
+                    <td>{{cpt.cptCode.code}}</td>
+                    <td>
+                        <span *ngFor="let icd of icdCodes; let j = index">
+                            <span>{{icd}}</span>
+                            <span *ngIf="j < icdCodes.length - 1">, </span>
+                        </span>
+                    </td>
+                    <td>{{cpt.rate}}</td>
+                    <td>{{cpt.currency.identifier}}</td>
+                    <td></td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>

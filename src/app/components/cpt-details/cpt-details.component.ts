@@ -9,8 +9,11 @@ import { GetCodesService } from 'src/app/services/get-codes.service';
 export class CptDetailsComponent implements OnInit {
   @Input() data: any[] | undefined;
   selectedCptCodes: any = [];
+  icdCodes: any = [];
   @Output() callback = new EventEmitter<any>();
-  constructor(private service: GetCodesService) { }
+  constructor(private service: GetCodesService) { 
+    this.icdCodes = service.claimObj.icdCodes;
+  }
 
   ngOnInit(): void {
   }

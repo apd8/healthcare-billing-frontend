@@ -58,7 +58,7 @@ export class BillingDetailsComponent implements OnInit {
     } else if(event.index == 1) {
       this.service.getCPTCodes()
         .subscribe((response: any[]) => {
-          this.codeInfo = response.slice(0,10);
+          this.codeInfo = response.slice(0,10).filter((item) => item.cptCodeRates);
         });
     }
   }  

@@ -11,6 +11,7 @@ export class IcdDetailsComponent implements OnInit {
   showChildData: boolean = false;
   childData: any[] = [];
   grandChildData: any[] = [];
+  parentIcdCode: string = "";
   selected: any = null;
   childCode: any = null;
   selectedIcdCodes: any[] = [];
@@ -49,6 +50,7 @@ export class IcdDetailsComponent implements OnInit {
   goBack() {
     this.showChildData = false;
     this.selectedIcdCodes = [];
+    this.parentIcdCode = "";
     this.service.setIcdCodes(this.selectedIcdCodes);
   }
 
@@ -63,8 +65,9 @@ export class IcdDetailsComponent implements OnInit {
     this.service.setIcdCodes(this.selectedIcdCodes);
   }
 
-  getChildCodes(code: string){
-    this.service.getICDChildCodes(code)
+  getChildCodes(item: any){
+    this.parentIcdCode = item.code;
+    this.service.getICDChildCodes(item.code)
     .subscribe((response: any) => {
       if(response != null)
         this.showChildData = true;

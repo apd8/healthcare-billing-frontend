@@ -37,38 +37,4 @@
             </mat-tab>
         </mat-tab-group>
     </div>
-
-    <div class="lookup-container" *ngIf="chargesList.length > 0">
-        <div class="d-flex align-items-center justify-content-between heading">
-            <span class="cl-black">Charges</span>
-            <div>
-                <button type="button" class="btn btn-primary mr-5">Run Charge Edit</button>
-                <button type="button" class="btn btn-success ml-5">Save Encounter</button>
-            </div>
-        </div>
-        <table>
-            <tr>
-                <th>CPT</th>
-                <th>ICDs</th>
-                <th>Units</th>
-                <th>Modifiers</th>
-                <th>Fee</th>
-                <th>Plan Amount</th>
-                <th>Pat. Amount</th>
-                <th>Co Pay</th>
-                <th>Actions</th>
-            </tr>
-            <tr *ngFor="let item of chargesList; let i = index">
-                <td>{{item.code}}</td>
-                <td>{{item.icd}}</td>
-                <td>{{item.unit}}</td>
-                <td>{{item.modifiers}}</td>
-                <td>{{item.fee}}</td>
-                <td>{{item.planAmount}}</td>
-                <td>{{item.patientAmount}}</td>
-                <td>{{item.coPay}}</td>
-                <td></td>
-            </tr>
-        </table>
-    </div>
 </div>
