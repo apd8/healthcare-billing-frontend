@@ -13,6 +13,7 @@ export class GetCodesService {
   icdChildCodesURL = "http://ec2-18-223-151-191.us-east-2.compute.amazonaws.com:8080/billing/icd10codes/";
   
   claimObj:any = {
+    "patientId": "",
     "icdCodes" : [],
     "cptCodes" : []
   }
