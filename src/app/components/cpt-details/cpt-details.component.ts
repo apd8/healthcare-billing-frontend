@@ -19,12 +19,11 @@ export class CptDetailsComponent implements OnInit {
   }
 
   selectCptCodes(ev: any, data: any, id: string) {
-    // console.log(data);
     if(ev.target.checked){
       data['id'] = id;
       this.selectedCptCodes.push(data);
     } else {
-      let removeIndex = this.selectedCptCodes.findIndex((itm: any) => itm.cptCode.code === data.cptCode.code);
+      let removeIndex = this.selectedCptCodes.findIndex((itm: any) => itm.code === data.code);
       if(removeIndex !== -1)
         this.selectedCptCodes.splice(removeIndex,1);
     }

@@ -8,9 +8,11 @@ import { retry, catchError } from 'rxjs/operators';
 })
 export class GetCodesService {
 
-  icdCodesURL = "http://ec2-18-223-151-191.us-east-2.compute.amazonaws.com:8080/billing/icd10codes";
-  cptCodesURL = "http://ec2-18-223-151-191.us-east-2.compute.amazonaws.com:8080/billing/cptCodes";
-  icdChildCodesURL = "http://ec2-18-223-151-191.us-east-2.compute.amazonaws.com:8080/billing/icd10codes/";
+  url = "http://ec2-18-223-151-191.us-east-2.compute.amazonaws.com:8080"
+  icdCodesURL = this.url + "/billing/icd10";
+  cptCodesURL = this.url + "/billing/cptGroups";
+  icdChildCodesURL = this.url + "/billing/icd10/";
+  configurations = this.url + "/billing/configurations";
   
   claimObj:any = {
     "patientId": "",
@@ -50,13 +52,20 @@ export class GetCodesService {
     )
   }
 
+  getConfigurations(): Observable<[]> {
+    return this.http.get<[]>(this.configurations)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    )
+  }
+
   setIcdCodes(codes: any[]) {
     this.claimObj['icdCodes'] = codes;
   }
 
   setCptCodes(codes: any[]) {
     this.claimObj['cptCodes'] = codes;
-    console.log(this.claimObj);
   }
 
   handleError(error: any) {

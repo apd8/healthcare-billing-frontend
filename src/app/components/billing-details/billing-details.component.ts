@@ -12,11 +12,14 @@ export class BillingDetailsComponent implements OnInit {
   chargesList: any[] = [];
   selectedIndex : number = 0;
   codeInfo: any = {};
+  configuration: any = {};
 
   constructor(private service: GetCodesService) { }
   ngOnInit(): void {
       this.service.getICDCodes()
         .subscribe(response => this.codeInfo = response.slice(0,10));
+      this.service.getConfigurations()
+      .subscribe(response => this.codeInfo["configuration"] = response);
   }
 
   list = [
@@ -58,7 +61,7 @@ export class BillingDetailsComponent implements OnInit {
     } else if(event.index == 1) {
       this.service.getCPTCodes()
         .subscribe((response: any[]) => {
-          this.codeInfo = response.slice(0,10).filter((item) => item.cptCodeRates);
+          this.codeInfo = response.filter((item) => item.cpts.length > 0);
         });
     }
   }  
