@@ -3,13 +3,15 @@
     class="col-lg-6 col-sm-12 col-xs-12">
         <div class="list-container" *ngIf="item.cpts && item.cpts?.length > 0">
             <div class="heading">{{item.description}}</div>
-            <div *ngFor="let list of item.cpts; let j = index">
-                <div class="content" *ngIf="j < 5">
-                    <input class="form-check-input" type="checkbox" [(ngModel)]="list.selected" [name]="list.code"
-                        [id]="list.code" (change)="selectCptCodes($event, list, list.code)">
-                    <label class="form-check-label ml-4" [for]="list">
-                        {{list.description}}
-                    </label>
+            <div class="cpt-container">
+                <div *ngFor="let list of item.cpts; let j = index">
+                    <div class="content">
+                        <input class="form-check-input" type="checkbox" [name]="list.code"
+                            [id]="list.code" (change)="selectCptCodes($event, list, list.code)">
+                        <label class="form-check-label ml-4" [for]="list">
+                            {{list.description}}
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -22,8 +24,7 @@
             <div class="d-flex align-items-center justify-content-between heading">
                 <span class="cl-black">Charges</span>
                 <div>
-                    <!-- <button type="button" class="btn btn-success mr-5">Run Charge Edit</button> -->
-                    <button type="button" class="btn btn-primary ml-5">Save Encounter</button>
+                    <button type="button" class="btn btn-primary ml-5" (click)="saveEncounter()">Save Encounter</button>
                 </div>
             </div>
             <table>
@@ -32,7 +33,6 @@
                     <th>ICDs</th>
                     <th>Fee</th>
                     <th>Currency</th>
-                    <th>Actions</th>
                 </tr>
                 <tr *ngFor="let cpt of selectedCptCodes; let i = index">
                     <td>{{cpt.code}}</td>
@@ -44,7 +44,6 @@
                     </td>
                     <td>{{cpt.rate}}</td>
                     <td>USD</td>
-                    <td></td>
                 </tr>
             </table>
         </div>

@@ -47,7 +47,7 @@ export class BillingDetailsComponent implements OnInit {
     //   "label": "visit Content"
     // },
     {
-      "name": "Claim Editing",
+      "name": "Claim",
       "label": "claim Content"
     }]
 
@@ -62,6 +62,11 @@ export class BillingDetailsComponent implements OnInit {
       this.service.getCPTCodes()
         .subscribe((response: any[]) => {
           this.codeInfo = response.filter((item) => item.cpts.length > 0);
+        });
+    } else if(event.index == 2) {
+      this.service.getClaims()
+        .subscribe((response: any[]) => {
+          this.codeInfo = response
         });
     }
   }  

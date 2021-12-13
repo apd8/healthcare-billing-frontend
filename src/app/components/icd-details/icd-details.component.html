@@ -16,7 +16,7 @@
             <div class="list-container">
                 <div class="content" *ngFor="let child of childData; let i = index">
                     <div>
-                        <input class="form-check-input" type="radio" [(ngModel)]="selected" [value]="child.code"
+                        <input class="form-check-input" type="radio"  [value]="child.code"
                             [name]="child.code" [id]="child.code" (change)="changeIcd(child.code)">
                         <label class="form-check-label ml-4" [for]="child.code">
                             {{child.description}}
@@ -33,7 +33,7 @@
                                         <div *ngIf="gchild.showSubcodes && gchild.showSubcodes == true">
                                             <div *ngFor="let subcode of gchild.subCodes; let k = index">
                                                 <div *ngIf="k < 5">
-                                                    <input class="form-check-input" type="checkbox" [(ngModel)]="subcode.selected"
+                                                    <input class="form-check-input" type="checkbox"
                                                     [value]="subcode.code" [name]="subcode.code" [id]="subcode.code" (change)="selectIcd($event, subcode)">
                                                     <label class="form-check-label ml-4" [for]="subcode.code">
                                                         {{subcode.description}}

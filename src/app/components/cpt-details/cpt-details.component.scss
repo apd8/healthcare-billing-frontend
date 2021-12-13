@@ -12,6 +12,11 @@
         white-space: nowrap;
     }
 
+    .cpt-container {
+        max-height: 200px;
+        overflow-y: scroll;
+    }
+
     .content:nth-child(even) {
         background-color: #f5f5f5;
     }

@@ -34,6 +34,7 @@
             <mat-tab [label]="item.name" *ngFor="let item of visitInfo; let i = index">
                 <icd-details *ngIf="selectedIndex == 0" [data]="codeInfo"></icd-details>
                 <cpt-details *ngIf="selectedIndex == 1" [data]="codeInfo"></cpt-details>
+                <claim-details *ngIf="selectedIndex == 2" [data]="codeInfo"></claim-details>
             </mat-tab>
         </mat-tab-group>
     </div>

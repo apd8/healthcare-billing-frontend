@@ -1,0 +1,94 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="lookup-container">
+            <table>
+                <tr>
+                    <th>Patient ID</th>
+                    <th>Time Created</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                <tr *ngFor="let item of data; let i = index">
+                    <td>{{item.patientId}}</td>
+                    <td>{{item.timeCreated}}</td>
+                    <td><span *ngIf="data && data.length > 0">$</span>{{item.amount}}</td>
+                    <td>
+                        {{item.status}}
+                        <!-- <div class="stat-2 stat-bar">
+                            <span class="stat-bar-rating tooltip1" role="stat-bar" style="width: 45%;"></span>
+                            <span class="tooltiptext">{{item.status}}</span>
+                        </div> -->
+                    </td>
+                    <td>
+                        <div class="tooltip1 me-1" (click)="delete(item.id)">
+                            <a href="javascript:void(0)" class="fa fa-2x fa-trash delete"></a>
+                            <span class="tooltiptext">Delete Claim</span>
+                        </div>
+                        <button type="button" class="btn btn-primary me-1" *ngIf="item.status == 'INITIATED'"
+                            (click)="processClaim(item.id)">Process</button>
+                        <button type="button" class="btn btn-success" (click)="generateStatement(item.id, template)"
+                            *ngIf="item.status != 'INITIATED'">Generate Statement</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left"></h4>
+        <button type="button close-btn" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body" #contentToConvert>
+        <div>
+            <div class="header-container">
+                <img src="../../../assets/images/New_Jersey_IT.png" class="njit_logo" alt="NJIT Logo">
+                <span>NJIT Healthcare</span>
+            </div>
+            <h1>Invoice</h1>
+            <div>
+                <div class="d-flex align-items-center justify-content-between">
+                    <span>BILLED TO </span>
+                    <span>Invoice No.: H145</span>
+                </div>
+                <div class="d-flex align-items-center justify-content-between">
+                    <span class="name">{{statement.patientName}}</span>
+                    <span>December 13, 2021</span>
+                </div>
+                <div>{{statement.address}}</div>
+                <div>DOB: {{statement.dob}}</div>
+            </div>
+            <div class="mb-2">
+                <div>Insurance : <span>Public Health Insurance</span></div>
+            </div>
+            <div>
+                <table>
+                    <tr>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                    </tr>
+                    <tr>
+                        <td>ICDs</td>
+                        <td>{{statement.icd10s.length}}</td>
+                    </tr>
+                    <tr>
+                        <td>CPTs</td>
+                        <td>{{statement.CPTs.length}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="amount">
+                <span>Total Amount : ${{statement.balance}}</span>
+                <span class="balance"> </span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="generatePdf(contentToConvert)">Save as PDF</button>
+        <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
+    </div>
+</ng-template>
