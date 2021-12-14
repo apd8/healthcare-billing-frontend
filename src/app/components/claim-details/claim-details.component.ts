@@ -16,6 +16,8 @@ export class ClaimDetailsComponent implements OnInit {
   @Input() data: any[] | undefined; 
   claimData:any= [];
   modalRef!: BsModalRef; 
+  claimId: string ="";
+  deleteModalRef!: BsModalRef; 
   statement:any = {}; 
   constructor(private service: GetCodesService,
     private  notifyService: NotificationService, 
@@ -78,8 +80,16 @@ export class ClaimDetailsComponent implements OnInit {
    });
  }
 
-  delete(id: string) {
-    this.service.deleteClaim(id).subscribe((res: any)=> {
+  delete(id: string, template: TemplateRef<any>) {
+    this.claimId = id;
+    this.deleteModalRef = this.modalService.show(
+      template,
+      Object.assign({}, { class: 'gray modal-lg' })
+    );
+  }
+
+  deleteConfirmation() {
+    this.service.deleteClaim(this.claimId).subscribe((res: any)=> {
       this.notifyService.showSuccess("Claim Deleted !!", "Success")
       if(res) {
         this.service.getClaims()
@@ -88,6 +98,7 @@ export class ClaimDetailsComponent implements OnInit {
         });
       }
     });
+    this.deleteModalRef.hide();
   }
 
 }

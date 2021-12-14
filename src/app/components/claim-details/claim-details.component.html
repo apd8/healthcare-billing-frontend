@@ -12,23 +12,26 @@
                 <tr *ngFor="let item of data; let i = index">
                     <td>{{item.patientId}}</td>
                     <td>{{item.timeCreated}}</td>
-                    <td><span *ngIf="data && data.length > 0">$</span>{{item.amount}}</td>
-                    <td>
-                        {{item.status}}
-                        <!-- <div class="stat-2 stat-bar">
-                            <span class="stat-bar-rating tooltip1" role="stat-bar" style="width: 45%;"></span>
-                            <span class="tooltiptext">{{item.status}}</span>
-                        </div> -->
+                    <td><span>$</span>{{item.amount}}</td>
+                    <td width="125px">
+                        <div class="progress">
+                            <div class="bar {{item.status}}">
+                                <p class="percent" ></p>
+                            </div>
+                        </div>
+                        <!-- <div *ngIf="item.status == 'SENT_FOR_ADJUDICATION'">For Review</div>
+                        <div *ngIf="item.status == 'PARTIALLY_PROCESSED'">Partial</div>
+                        <div *ngIf="item.status != 'SENT_FOR_ADJUDICATION' && item.status != 'PARTIALLY_PROCESSED'">{{item.status}}</div> -->
                     </td>
                     <td>
-                        <div class="tooltip1 me-1" (click)="delete(item.id)">
+                        <div class="tooltip1 me-1" (click)="delete(item.id, deleteTemplate)">
                             <a href="javascript:void(0)" class="fa fa-2x fa-trash delete"></a>
                             <span class="tooltiptext">Delete Claim</span>
                         </div>
                         <button type="button" class="btn btn-primary me-1" *ngIf="item.status == 'INITIATED'"
                             (click)="processClaim(item.id)">Process</button>
                         <button type="button" class="btn btn-success" (click)="generateStatement(item.id, template)"
-                            *ngIf="item.status != 'INITIATED'">Generate Statement</button>
+                            *ngIf="item.status != 'INITIATED' && item.status != 'PROCESSED'">Generate Statement</button>
                     </td>
                 </tr>
             </table>
@@ -46,7 +49,7 @@
     <div class="modal-body" #contentToConvert>
         <div>
             <div class="header-container">
-                <img src="../../../assets/images/New_Jersey_IT.png" class="njit_logo" alt="NJIT Logo">
+                <img src="../../../assets/images/njit-logo-red.png" class="njit_logo" alt="NJIT Logo">
                 <span>NJIT Healthcare</span>
             </div>
             <h1>Invoice</h1>
@@ -68,27 +71,53 @@
             <div>
                 <table>
                     <tr>
-                        <th>Description</th>
+                        <th >Description</th>
                         <th>Quantity</th>
                     </tr>
                     <tr>
-                        <td>ICDs</td>
+                        <td width="50%">ICDs</td>
                         <td>{{statement.icd10s.length}}</td>
                     </tr>
                     <tr>
-                        <td>CPTs</td>
+                        <td width="50%">CPTs</td>
                         <td>{{statement.CPTs.length}}</td>
                     </tr>
                 </table>
             </div>
-            <div class="amount">
-                <span>Total Amount : ${{statement.balance}}</span>
-                <span class="balance"> </span>
+            <div class="d-flex align-items-center mt-3">
+                <div style="width: 50%;">
+                    <div class="font-weight-bold">Please Make Payment to: </div>
+                    <div>NJIT Healthcare</div>
+                    <div>Account no.4535-8769-23</div>
+                </div>
+                <div>
+                    <div class="font-weight-bold">Total Amount </div>
+                    <div class="font-weight-bold">${{statement.balance}}</div>
+                </div>
+            </div>
+            <div class="statement-footer">
+                <span>323 Dr Martin Luther King Jr Blvd, Newark, NJ 07102</span>
             </div>
         </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="generatePdf(contentToConvert)">Save as PDF</button>
         <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
+    </div>
+</ng-template>
+
+<ng-template #deleteTemplate>
+    <div class="modal-header">
+        <span class="modal-title pull-left">Confirm</span>
+        <button type="button close-btn" class="close pull-right" aria-label="Close" (click)="deleteModalRef.hide()">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body" >
+        <span class="mb-5">Are you sure, you want to delete this claim?</span> 
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="deleteConfirmation()">Yes</button>
+        <button type="button" class="btn btn-default" (click)="deleteModalRef.hide()">No</button>
     </div>
 </ng-template>
