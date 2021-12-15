@@ -13,10 +13,10 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./claim-details.component.scss']
 })
 export class ClaimDetailsComponent implements OnInit {
-  @Input() data: any[] | undefined; 
   claimData:any= [];
   modalRef!: BsModalRef; 
   claimId: string ="";
+  loader: boolean = true;
   deleteModalRef!: BsModalRef; 
   statement:any = {}; 
   constructor(private service: GetCodesService,
@@ -26,7 +26,11 @@ export class ClaimDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.claimData = this.data;
+    this.service.getClaims()
+        .subscribe((response: any[]) => {
+          this.loader = false;
+          this.claimData = response;
+        });
   }
 
   processClaim(id: string) {
@@ -34,7 +38,7 @@ export class ClaimDetailsComponent implements OnInit {
       if(res) {
         this.service.getClaims()
         .subscribe((response: any[]) => {
-          this.data = response;
+          this.claimData = response;
         });
       }
       this.notifyService.showSuccess("Claim has been processed !!", "Success");
@@ -76,7 +80,7 @@ export class ClaimDetailsComponent implements OnInit {
        pdf.addPage([PDF_Width, PDF_Height], 'p');
        pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
      }
-      pdf.save("HTML-Document.pdf");
+      pdf.save("Bill.pdf");
    });
  }
 
@@ -89,12 +93,14 @@ export class ClaimDetailsComponent implements OnInit {
   }
 
   deleteConfirmation() {
+    this.loader = true;
     this.service.deleteClaim(this.claimId).subscribe((res: any)=> {
-      this.notifyService.showSuccess("Claim Deleted !!", "Success")
+      this.loader = false;
+      this.notifyService.showSuccess("Claim Deleted !!", "Success");
       if(res) {
         this.service.getClaims()
         .subscribe((response: any[]) => {
-          this.data = response;
+          this.claimData = response;
         });
       }
     });

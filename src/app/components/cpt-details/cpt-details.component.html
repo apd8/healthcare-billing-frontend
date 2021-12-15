@@ -1,3 +1,9 @@
+<div class="container loader-container" *ngIf="loader">
+    <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+    <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+</div>
+
 <div class="row">
     <div *ngFor="let item of data; let i = index" 
     class="col-lg-6 col-sm-12 col-xs-12">

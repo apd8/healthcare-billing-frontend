@@ -8,16 +8,23 @@ import { NotificationService } from 'src/app/services/notification.service';
   styleUrls: ['./cpt-details.component.scss']
 })
 export class CptDetailsComponent implements OnInit {
-  @Input() data: any[] | undefined;
+  // @Input() data: any[] | undefined;
   selectedCptCodes: any = [];
+  data: any = [];
   icdCodes: any = [];
   cptCodes: any = [];
+  loader: boolean = true;
   @Output() callback = new EventEmitter<any>();
   constructor(private service: GetCodesService,private  notifyService: NotificationService) { 
     this.icdCodes = service.claimObj.icd10Codes;
   }
 
   ngOnInit(): void {
+    this.service.getCPTCodes()
+        .subscribe((response: any[]) => {
+          this.loader = false;
+          this.data = response.filter((item) => item.cpts.length > 0);
+        });
   }
 
   saveEncounter() {

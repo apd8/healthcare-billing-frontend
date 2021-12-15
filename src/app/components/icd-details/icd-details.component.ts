@@ -11,17 +11,21 @@ export class IcdDetailsComponent implements OnInit {
   showChildData: boolean = false;
   childData: any[] = [];
   grandChildData: any[] = [];
+  data: any[] = [];
   parentIcdCode: string = "";
   selected: any = null;
   childCode: any = null;
   selectedIcdCodes: any[] = [];
-  @Input() data: any[] | undefined;
   @Output() callback = new EventEmitter<any>();
   constructor(private service: GetCodesService, private elementRef:ElementRef) { 
 
   }
 
   ngOnInit(): void {
+    this.service.getICDCodes()
+    .subscribe((response: any[]) => {
+      this.data = response.slice(0,10);
+    });
   }
 
   ngAfterViewInit() {

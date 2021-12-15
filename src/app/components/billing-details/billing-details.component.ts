@@ -42,10 +42,6 @@ export class BillingDetailsComponent implements OnInit {
       "name": "CPT",
       "label": "cpt Content"
     },
-    //  {
-    //   "name": "Visit Extra Info",
-    //   "label": "visit Content"
-    // },
     {
       "name": "Claim",
       "label": "claim Content"
@@ -53,22 +49,6 @@ export class BillingDetailsComponent implements OnInit {
 
   onTabChanged(event: any) {
     this.selectedIndex = event.index;
-    if (event.index == 0) {
-      this.service.getICDCodes()
-        .subscribe((response: any[]) => {
-          this.codeInfo = response.slice(0,10);
-        });
-    } else if(event.index == 1) {
-      this.service.getCPTCodes()
-        .subscribe((response: any[]) => {
-          this.codeInfo = response.filter((item) => item.cpts.length > 0);
-        });
-    } else if(event.index == 2) {
-      this.service.getClaims()
-        .subscribe((response: any[]) => {
-          this.codeInfo = response
-        });
-    }
   }  
 
 }

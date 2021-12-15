@@ -1,4 +1,10 @@
-<div class="row">
+<div class="container loader-container" *ngIf="loader">
+    <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+    <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+</div>
+
+<div class="row" *ngIf="claimData?.length > 0 && !loader">
     <div class="col-lg-12">
         <div class="lookup-container">
             <table>
@@ -9,7 +15,7 @@
                     <th>Status</th>
                     <th>Action</th>
                 </tr>
-                <tr *ngFor="let item of data; let i = index">
+                <tr *ngFor="let item of claimData; let i = index">
                     <td>{{item.patientId}}</td>
                     <td>{{item.timeCreated}}</td>
                     <td><span>$</span>{{item.amount}}</td>
@@ -102,7 +108,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="generatePdf(contentToConvert)">Save as PDF</button>
-        <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
+        <button type="button" class="btn btn-light" (click)="modalRef.hide()">Close</button>
     </div>
 </ng-template>
 
@@ -118,6 +124,6 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-primary" (click)="deleteConfirmation()">Yes</button>
-        <button type="button" class="btn btn-default" (click)="deleteModalRef.hide()">No</button>
+        <button type="button" class="btn btn-light" (click)="deleteModalRef.hide()">No</button>
     </div>
 </ng-template>

@@ -22,6 +22,13 @@ button.close.pull-right {
   font-weight: 700;
 }
 
+.loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+
 .progress {
   // margin:20px auto;
   padding:0;
