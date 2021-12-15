@@ -152,6 +152,9 @@ button.close.pull-right {
 .delete {
   color: #fd0d4f;
 }
+.file {
+  color: #7e7c7c;
+}
 .stat-bar-rating {
   // visibility: hidden;
   width: 0;
@@ -220,7 +223,7 @@ table
 .tooltip1 {
     position: relative;
     display: inline-block;
-    border-bottom: 1px dotted black;
+    // border-bottom: 1px dotted black;
   }
 
   .tooltip1:hover {

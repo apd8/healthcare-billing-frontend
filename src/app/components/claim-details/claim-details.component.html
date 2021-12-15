@@ -34,10 +34,17 @@
                             <a href="javascript:void(0)" class="fa fa-2x fa-trash delete"></a>
                             <span class="tooltiptext">Delete Claim</span>
                         </div>
-                        <button type="button" class="btn btn-primary me-3" *ngIf="item.status == 'INITIATED'"
-                            (click)="processClaim(item.id)">Process</button>
-                        <button type="button" class="btn btn-success" (click)="generateStatement(item.id, template)"
-                            *ngIf="item.status != 'INITIATED' && item.status != 'PROCESSED'">Generate Statement</button>
+                        <!-- <button type="button" class="btn btn-primary me-3" *ngIf="item.status == 'INITIATED'"
+                            (click)="processClaim(item.id)">Process</button> -->
+                        <div class="tooltip1 me-3" (click)="processClaim(item.id)" *ngIf="item.status == 'INITIATED'">
+                            <a href="javascript:void(0)" class="fa fa-2x fa fa-refresh process"></a>
+                            <span class="tooltiptext">Process</span>
+                        </div>
+                        <div class="tooltip1" (click)="generateStatement(item.id, template)" *ngIf="item.status != 'INITIATED' && item.status != 'PROCESSED'">
+                            <a href="javascript:void(0)" class="fa fa-2x fa-file-text-o file"></a>
+                            <span class="tooltiptext">Generate Statement</span>
+                        </div>
+                        
                     </td>
                 </tr>
             </table>
