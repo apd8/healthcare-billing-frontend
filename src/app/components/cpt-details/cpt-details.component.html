@@ -6,7 +6,7 @@
             <div class="cpt-container">
                 <div *ngFor="let list of item.cpts; let j = index">
                     <div class="content">
-                        <input class="form-check-input" type="checkbox" [name]="list.code"
+                        <input class="form-check-input checkbox-input" type="checkbox" [name]="list.code"
                             [id]="list.code" (change)="selectCptCodes($event, list, list.code)">
                         <label class="form-check-label ml-4" [for]="list">
                             {{list.description}}

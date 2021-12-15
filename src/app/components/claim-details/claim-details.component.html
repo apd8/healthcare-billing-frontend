@@ -24,11 +24,11 @@
                         <div *ngIf="item.status != 'SENT_FOR_ADJUDICATION' && item.status != 'PARTIALLY_PROCESSED'">{{item.status}}</div> -->
                     </td>
                     <td>
-                        <div class="tooltip1 me-1" (click)="delete(item.id, deleteTemplate)">
+                        <div class="tooltip1 me-3" (click)="delete(item.id, deleteTemplate)">
                             <a href="javascript:void(0)" class="fa fa-2x fa-trash delete"></a>
                             <span class="tooltiptext">Delete Claim</span>
                         </div>
-                        <button type="button" class="btn btn-primary me-1" *ngIf="item.status == 'INITIATED'"
+                        <button type="button" class="btn btn-primary me-3" *ngIf="item.status == 'INITIATED'"
                             (click)="processClaim(item.id)">Process</button>
                         <button type="button" class="btn btn-success" (click)="generateStatement(item.id, template)"
                             *ngIf="item.status != 'INITIATED' && item.status != 'PROCESSED'">Generate Statement</button>
